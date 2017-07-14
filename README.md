@@ -2,7 +2,7 @@ We communicate programming techniques in many informal and semi-structured modes
 
 How to use this repository
 --------------------------
-Examine the example directory, distributed-computing-at-scale. It contains programming techniques documented in three forms. First, an excerpt from a source narrative describing the venerable craft of "printf debugging""
+Examine the example directory, distributed-computing-at-scale. It contains programming techniques documented in three forms. First, an excerpt from a source narrative describing the venerable craft of "printf debugging"
 
 ![printf debugging on a slide](https://github.com/SamPenrose/decision-tree-coding/raw/master/narrative-example.png "Advice on slide")
 
@@ -19,7 +19,7 @@ Then a markdown-style specification in Graphviz's dot language (excerpted):
 
 and finally, the specification compiled to a flowchart:
 
-![Flowchart](https://github.com/SamPenrose/decision-tree-coding/raw/master/distributed-computing-at-scale/svg/normal.svg "Flowchart")
+![Flowchart](https://github.com/SamPenrose/decision-tree-coding/raw/master/distributed-computing-at-scale/png/normal.png "Flowchart")
 
 Which form conveys the technique most clearly?
 
