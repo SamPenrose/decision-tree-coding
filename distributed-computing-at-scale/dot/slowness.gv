@@ -1,0 +1,25 @@
+digraph {
+  subgraph cluster_slowness {
+    label="Slowness"
+
+    node[shape="box", style="rounded"]
+      "Heavy load";
+    node[shape="box", style=""] # sink
+      "Repartition on comparison key"; Reallocate; "Divide and conquer"; Sample; "Allocate more processing hardware"
+    node[shape="diamond", style=""] # branch
+      "[Exponential behavior]?"; "Invoking an exponential algorithm?"; "Comparing many to many?"; "Is data skewed?"; "Is processing function associative?"; "Can we sample?"
+
+    "[Exponential behavior]?" -> "Invoking an exponential algorithm?"[label="Yes"]
+    "[Exponential behavior]?" -> "Heavy load"[label="No"]
+    "Invoking an exponential algorithm?" -> "Comparing many to many?"[label="Yes"]
+    "Invoking an exponential algorithm?" -> "Is data skewed?"[label="No"]
+    "Comparing many to many?" -> "Repartition on comparison key"[label="Yes"]
+    "Is data skewed?" -> Reallocate[label="Yes"]
+    "Is data skewed?" -> "Is processing function associative?"[label="No"]
+    "Is processing function associative?" -> "Divide and conquer"[label="Yes"]
+    "Is processing function associative?" -> "Heavy load"[label="No"]
+    "Heavy load" -> "Can we sample?"
+    "Can we sample?" -> Sample[label="Yes"]
+    "Can we sample?" -> "Allocate more processing hardware"[label="No"]
+  }
+}

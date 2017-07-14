@@ -1,0 +1,21 @@
+digraph {
+  subgraph cluster_unexpected {
+    label="Result violates prior belief"
+
+    node[shape="box", style="rounded"]
+      "Check arbitrary sample"; "[Run basic statistics on data]";
+    node[shape="box", style=""] # sink
+      Recollect; "Reportable result!"; Fix
+    node[shape="diamond", style=""] # branch
+      "Problem identified?"; "Problem with collection?"; "Is processing state machine broken?"
+
+    "Check arbitrary sample" -> "Problem identified?"
+    "Problem identified?" -> Fix [label="Yes"]
+    "Problem identified?" -> "[Run basic statistics on data]"[label="No"]
+    "[Run basic statistics on data]" -> "Problem with collection?"
+    "Problem with collection?" -> Recollect[label="Yes"]
+    "Problem with collection?" -> "Is processing state machine broken?"[label="No"]
+    "Is processing state machine broken?" -> Fix[label="Yes"]
+    "Is processing state machine broken?" -> "Reportable result!"[label="No"]
+  }
+}

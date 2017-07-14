@@ -1,0 +1,30 @@
+digraph {
+  subgraph cluster_symptoms {
+    label="Map your symptom"
+
+    node[shape="box", style="rounded"]
+      Traceback; Slowness; "Unexpected Result"
+    node[shape="diamond"]
+      "To ..."
+
+    Traceback -> "To ..."
+    Slowness -> "To ..."
+    "Unexpected Result" -> "To ..."
+  }
+  subgraph cluster_causes {
+    label = "Root Causes"
+
+    node[shape="box", style="rounded"]
+      "Data Variance"; "Exponential Behavior"; "Framework State"; "Inaccurate Mental Model"; "Heavy Load"; "Other (?)"
+    node[shape="diamond"]
+      "... one of:"
+
+    "To ..." -> "... one of:"
+    "... one of:" -> "Data Variance"
+    "... one of:" -> "Exponential Behavior"
+    "... one of:" -> "Framework State"
+    "... one of:" -> "Inaccurate Mental Model"
+    "... one of:" -> "Heavy Load"
+    "... one of:" -> "Other (?)"
+  }
+}

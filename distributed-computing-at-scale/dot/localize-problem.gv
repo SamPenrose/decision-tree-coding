@@ -1,0 +1,28 @@
+digraph {
+  subgraph cluster_localize_problem {
+    label="Localize problem state to observe it"
+
+    node[shape="box", style="rounded"]
+      "Identify code that triggers problem"; "Choose code last edited"; "Search for problem code"; "Code identified"; "Identify small dataset that triggers problem"; "Choose arbitrary subset";
+    node[shape="box", style=""] # sink
+      "Normal coding\n(with small dataset and identified code)"; "to \"Scale out, then up in steps\""; "to \"Convert processing code to problem filter\""; Research
+    node[shape="diamond", style=""]
+      "Problem triggered by last edit?"; "Triggers problem?"; "Problem fixed?"; "Obvious?"
+
+    "Identify code that triggers problem" -> "Problem triggered by last edit?"
+    "Problem triggered by last edit?" -> "Choose code last edited"[label="Yes"]
+    "Problem triggered by last edit?" -> "Search for problem code"[label="No"]
+    "Choose code last edited" -> "Code identified"
+    "Search for problem code" -> "Code identified"
+    "Code identified" -> "Identify small dataset that triggers problem"
+    "Identify small dataset that triggers problem" -> "Obvious?"
+    "Obvious?" -> "Normal coding\n(with small dataset and identified code)"[label="Yes"]
+    "Obvious?" -> "Choose arbitrary subset"[label="No"]
+    "Normal coding\n(with small dataset and identified code)" -> "Problem fixed?"
+    "Problem fixed?" -> "to \"Scale out, then up in steps\""[label="Yes"]
+    "Problem fixed?" -> Research[label="No"]
+    "Choose arbitrary subset" -> "Triggers problem?"
+    # "Triggers problem?" -> [label="Yes"]
+    "Triggers problem?" -> "to \"Convert processing code to problem filter\"" [label="No"]
+  }
+}

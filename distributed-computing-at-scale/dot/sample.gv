@@ -1,0 +1,36 @@
+digraph {
+  subgraph cluster_localize_problem_state {
+    label="Localize problem state to observe it";
+
+    node[shape="box", style="rounded"] # source
+       "Parse traceback for inner line"; "Debug locally"
+    node[shape="box", style=""] # sink
+       "Toolchain panic"; "Undistributed library"; "Code vs. data"
+    node[shape="diamond", style=""] # branch
+       "Do you have a traceback?"; "From toolchain?"; "ImportError?"
+
+    "Do you have a traceback?" -> "Parse traceback for inner line"[label="yes"];
+    "Parse traceback for inner line" -> "From toolchain?"
+    "From toolchain?" -> "Toolchain panic"[label="Yes"]
+    "From toolchain?" -> "ImportError?"[label="No"]
+    "ImportError?" -> "Undistributed library"[label="Yes"]
+    "ImportError?" -> "Code vs. data"[label="No"]
+    "Code vs. data" -> "Debug locally"[constraint=false]
+  }
+  subgraph cluster_debug_locally {
+    label = "Debug locally"
+    node[shape="box", style="rounded"] # source
+      "take()"; "Filter problems"; "Distribute map() that returns true for problems"
+    node[shape="box", style=""] # sink
+      "Normal coding"
+    node[shape="diamond", style=""] # branch
+      "Problem in every row?"; "Problem in these rows?"
+    "Debug locally" -> "Problem in every row?"
+    "Problem in every row?" -> "take()"[label="Yes / maybe"]
+    "Problem in every row?" -> "Filter problems"[label="No"]
+    "take()" -> "Problem in these rows?"
+    "Problem in these rows?" -> "Normal coding"[label="Yes"]
+    "Problem in these rows?" -> "Filter problems"[label="No"]
+    "Filter problems" -> "Distribute map() that returns true for problems"
+  }
+}

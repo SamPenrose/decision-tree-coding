@@ -1,0 +1,39 @@
+digraph {
+  subgraph cluster_normal {
+    label="Normal coding"
+
+    node[shape="box", style="rounded"]
+      "Start with working code"; "Make a small edit"; "Run program"; "Observe behavior";
+    node[shape="box", style=""] # sink
+      "to \"Print debugging\""
+    node[shape="diamond", style=""]
+      "Is behavior expected?";
+
+    "Start with working code" -> "Make a small edit"
+    "Make a small edit" -> "Run program"
+    "Run program" -> "Observe behavior"
+    "Observe behavior" -> "Is behavior expected?"
+    "Is behavior expected?" -> "Make a small edit"[label="Yes"]
+    "Is behavior expected?" -> "to \"Print debugging\""[label="No"]
+  }
+  subgraph cluster_print_debugging {
+    label="Print debugging"
+
+    node[shape="box", style="rounded"]
+      "Choose block to debug"; "Add print() of local variables"; "Run, then read print() output"
+    node[shape="box", style=""] # sink
+      "Enter solution"; Research
+    node[shape="diamond", style=""]
+      "Understand problem?"; "Perceive solution?"
+
+    "to \"Print debugging\"" -> "Add print() of local variables"[constraint=false]
+    "Choose block to debug" -> "Add print() of local variables"
+    "Add print() of local variables" -> "Run, then read print() output"
+    "Run, then read print() output" -> "Understand problem?"
+    "Understand problem?" -> "Perceive solution?"[label="Yes"]
+    "Understand problem?" -> Research[label="No"]
+    "Perceive solution?" -> "Enter solution"[label="Yes"]
+    "Perceive solution?" -> Research[label="No"]
+    "Enter solution" -> "Run program"[constraint=false]
+  }
+}

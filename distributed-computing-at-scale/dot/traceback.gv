@@ -1,0 +1,21 @@
+digraph {
+  subgraph cluster_traceback {
+    label="Traceback"
+
+    node[shape="box", style="rounded"]
+      "Parse traceback for inner line"; "Code vs. data"; "to \"Localize problem state to observe it\""
+    node[shape="box", style=""] # sink
+      "Enter solution"; "Toolchain panic"; "Undistributed library";
+    node[shape="diamond", style=""] # branch
+      "Shows problem?"; "From toolchain?"; "ImportError?"
+
+    "Shows problem?" -> "Enter solution"[label="Yes"]
+    "Shows problem?" -> "Parse traceback for inner line"[label="No"]
+    "Parse traceback for inner line" -> "From toolchain?"
+    "From toolchain?" -> "Toolchain panic"[label="Yes"]
+    "From toolchain?" -> "ImportError?"[label="No"]
+    "ImportError?" -> "Undistributed library"[label="Yes"]
+    "ImportError?" -> "Code vs. data"[label="No"]
+    "Code vs. data" -> "to \"Localize problem state to observe it\""
+  }
+}
